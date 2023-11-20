@@ -53,7 +53,10 @@ VRA
 RAR
 AAR
 RVV
+
+
 Salida
+
 Juego 1:
 Movimiento 1 en (1, 3): eliminó 5 fichas de color R y obtuvo 9 puntos.
 Movimiento 2 en (2, 1): eliminó 4 fichas de color A y obtuvo 4 puntos.
