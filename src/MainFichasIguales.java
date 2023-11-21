@@ -1,29 +1,100 @@
-// Prueba GitHub
-// Cambios de prueba 
-//    Clase JuegoFichas:
-    //     Atributos: Número de filas, número de columnas, matriz del tablero.
-    //     Métodos:
-    //         Método para cargar la configuración inicial del tablero.
-    //         Método para imprimir el estado actual del tablero.
 
-    // Clase Movimiento:
-    //     Atributos: Número de movimiento, coordenadas (fila, columna), número de fichas eliminadas, color de las fichas, puntuación.
-    //     Método para imprimir la información del movimiento.
+// Clase Principal:
+//     Método main que maneje la entrada y salida del programa.
+//     Crear instancias de las clases anteriores y llamar a los métodos correspondientes para ejecutar el juego.
 
-    // Clase EstrategiaOptima:
-    //     Atributos: Instancia del juego actual.
-    //     Método para encontrar el conjunto de movimientos que da la mayor puntuación posible.
+package src;
 
-    // Clase Principal:
-    //     Método main que maneje la entrada y salida del programa.
-    //     Crear instancias de las clases anteriores y llamar a los métodos correspondientes para ejecutar el juego.
+import java.util.Scanner;
+import java.util.ArrayList;
 
-    package src;
+public class MainFichasIguales{
+    public static void main(String[] args) throws Exception {
+        
+        ArrayList<char[][]> todosLosJuegos = new ArrayList<>();
+        leerEntrada(todosLosJuegos);
+        
 
-    public class MainFichasIguales{
-        public static void main(String[] args) throws Exception {
+        for (char[][] juego : todosLosJuegos) {
+            System.out.println("Matriz:");
+            for (int i = 0; i < juego.length; i++) {
+                for (int j = 0; j < juego[i].length; j++) {
+                    System.out.print(juego[i][j] + " ");
+                }
+                System.out.println(); // Nueva línea para cada fila
+            }
+            System.out.println(); // Nueva línea entre matrices
+        }
+ 
+    }
 
+    public static void leerEntrada(ArrayList<char[][]> todosLosJuegos) throws IllegalArgumentException{
+        Scanner sc = new Scanner(System.in);
+        int numeroDeJuegos = Integer.parseInt(sc.nextLine());
+        if(numeroDeJuegos < 1){
+            sc.close();
+            throw new IllegalArgumentException("El número de juegos debe ser al menos 1.");
+        }
+        
+        String lineaVacia = sc.nextLine(); // Sirve para saltarse la primera linea en blanco.
+        if(!lineaVacia.isEmpty()){
+            sc.close();
+            throw new IllegalArgumentException("No existe la linea en blanco necesaria entre el numero que indica la cantidad de juegos y el primer juego.");
         }
 
+        for (int i = 0; i < numeroDeJuegos; i++) {
+            boolean matrizIncorrecta = false;
+            String primeraFila = sc.nextLine();
+            char[] primeraFilaFragmentada = primeraFila.toCharArray();
 
+            int numeroColumnas = primeraFilaFragmentada.length;
+
+            if(numeroColumnas > 20){
+                System.out.println("Numero de columnas incorrecto en el juego " + (i+1) + ".");
+                break;
+            }
+
+            ArrayList<Character> juegoArrayList = new ArrayList<>();
+
+            for(char fragmento : primeraFilaFragmentada) {
+                juegoArrayList.add(fragmento);
+            }
+
+            while(sc.hasNextLine()){
+                String linea = sc.nextLine();
+
+                if (linea.equals("")) break;
+ 
+                char[] lineafragmentada = linea.toCharArray();
+                if(lineafragmentada.length == numeroColumnas){
+                    for(char fragmento : lineafragmentada){
+                        juegoArrayList.add(fragmento);
+                    }
+                } else {
+                    matrizIncorrecta = true;
+                    break;
+                }
+            }
+
+            if(matrizIncorrecta){
+                break;
+            }
+
+            int numeroFilas = (juegoArrayList.size() / numeroColumnas);
+
+            char[][] juego = new char[numeroFilas][numeroColumnas];
+
+            for (int j = 0; j < numeroFilas; j++) {
+                for (int k = 0; k < numeroColumnas; k++) {
+                    int indiceArrayList = j * numeroColumnas + k;
+                    juego[j][k] = juegoArrayList.get(indiceArrayList);
+                }
+            }
+
+            todosLosJuegos.add(juego);
+        }
+        sc.close();
     }
+
+}
+
