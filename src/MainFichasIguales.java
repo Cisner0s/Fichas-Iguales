@@ -13,8 +13,15 @@ public class MainFichasIguales{
         
         ArrayList<char[][]> todosLosJuegos = new ArrayList<>();
         leerEntrada(todosLosJuegos);
-        
 
+        for (int i = 0; i < todosLosJuegos.size(); i++) {
+            char[][] juego = todosLosJuegos.get(i);
+            Tablero tablero = new Tablero(juego.length, juego[0].length, juego);
+            Tablero.imprimirTablero(tablero);
+            System.out.println();
+        }
+
+        // IMPRESION DE LAS MATRICES DE ENTRADA
         for (char[][] juego : todosLosJuegos) {
             System.out.println("Matriz:");
             for (int i = 0; i < juego.length; i++) {
