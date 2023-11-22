@@ -74,14 +74,14 @@ public class Movimiento {
 
     public void imprimirMovimiento(Movimiento movimiento){
         if(movimiento.getNumFichasEliminadas() == 3){ // Caso en el que solo se consigue un punto.
-            System.out.println("Movimiento " + movimiento.getNumMovimiento() + "en (" + movimiento.getCoordenadaX() +
+            System.out.println("Movimiento " + movimiento.getNumMovimiento() + " en (" + movimiento.getCoordenadaX() +
             ", " + movimiento.getCoordenadaY() + "): eliminó " + movimiento.getNumFichasEliminadas() +
-            "fichas de color " + movimiento.getColor() + " y obtuvo " + movimiento.getPuntos() + "punto.");
+            " fichas de color " + movimiento.getColor() + " y obtuvo " + movimiento.getPuntos() + " punto.");
 
         } else{
-            System.out.println("Movimiento " + movimiento.getNumMovimiento() + "en (" + movimiento.getCoordenadaX() +
+            System.out.println("Movimiento " + movimiento.getNumMovimiento() + " en (" + movimiento.getCoordenadaX() +
             ", " + movimiento.getCoordenadaY() + "): eliminó " + movimiento.getNumFichasEliminadas() +
-            "fichas de color " + movimiento.getColor() + " y obtuvo " + movimiento.getPuntos() + "puntos.");
+            " fichas de color " + movimiento.getColor() + " y obtuvo " + movimiento.getPuntos() + " puntos.");
         }
     }
 }

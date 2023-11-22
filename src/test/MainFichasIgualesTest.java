@@ -9,7 +9,7 @@ import java.io.ByteArrayInputStream;
 public class MainFichasIgualesTest {
 
     @Test
-    public void leerEntradaEjemploTest() {
+    public void testLeerEntradaEjemplo() {
         ArrayList<char[][]> todosLosJuegos = new ArrayList<>();
         String input = "2\r\n" + //
                         "\r\n" + //
@@ -59,7 +59,7 @@ public class MainFichasIgualesTest {
     }
 
     @Test
-    public void leerEntradaUnSoloJuegoTest() {
+    public void testLeerEntradaUnSoloJuego() {
         ArrayList<char[][]> todosLosJuegos = new ArrayList<>();
         String input = "1\r\n" + //
                         "\r\n" + //
@@ -90,7 +90,7 @@ public class MainFichasIgualesTest {
     }
 
       @Test
-    public void maximoColumnasTest() {
+    public void testMaximoColumnas() {
         ArrayList<char[][]> todosLosJuegos = new ArrayList<>();
         String input = "1\r\n" + //
                         "\r\n" + //
@@ -129,7 +129,7 @@ public class MainFichasIgualesTest {
     }
 
     @Test
-    public void minMatrizTest() {
+    public void testMinimaMatriz() {
         ArrayList<char[][]> todosLosJuegos = new ArrayList<>();
         String input = "1\r\n" + //
                         "\r\n" + //
@@ -146,7 +146,7 @@ public class MainFichasIgualesTest {
     }
 
     @Test   
-    public void columnasNoCuadranSoloValidoElPrimerJuegoTest() {
+    public void testColumnasNoCuadranSoloValidoElPrimerJuego() {
         ArrayList<char[][]> todosLosJuegos = new ArrayList<>();
         String input = "2\r\n" + //
                         "\r\n" + //
@@ -180,7 +180,7 @@ public class MainFichasIgualesTest {
     }
 
     @Test
-    public void columnasNoCuadranSeCortaLaEjecucionTest() {
+    public void testColumnasNoCuadranSeCortaLaEjecucion() {
         ArrayList<char[][]> todosLosJuegos = new ArrayList<>();
         String input = "2\r\n" + //
                         "\r\n" + //
@@ -200,7 +200,7 @@ public class MainFichasIgualesTest {
     }
 
     @Test
-    public void superaElLimiteDeColumnasTest() {
+    public void testSuperaElLimiteDeColumnas() {
         ArrayList<char[][]> todosLosJuegos = new ArrayList<>();
         String input = "2\r\n" + //
                         "\r\n" + //
@@ -220,7 +220,7 @@ public class MainFichasIgualesTest {
     }
 
     @Test
-    public void NumeroDeJuegosInvalidoTest() {
+    public void testNumeroDeJuegosInvalido() {
         String input = "0\n";  // Simulamos un número de juegos inválido (menos de 1)
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
@@ -234,7 +234,7 @@ public class MainFichasIgualesTest {
     }
 
     @Test
-    public void lineaEnBlancoFaltanteTest() {
+    public void testLineaEnBlancoFaltante() {
         ArrayList<char[][]> todosLosJuegos = new ArrayList<>();
         String input = "2\r\n" + //
                         // No hay línea en blanco después del número de juegos
