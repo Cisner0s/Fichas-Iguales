@@ -1,4 +1,4 @@
-
+    
 // Clase Principal:
 //     Método main que maneje la entrada y salida del programa.
 //     Crear instancias de las clases anteriores y llamar a los métodos correspondientes para ejecutar el juego.
@@ -17,6 +17,10 @@ public class MainFichasIguales{
         for (int i = 0; i < todosLosJuegos.size(); i++) {
             char[][] juego = todosLosJuegos.get(i);
             Tablero tablero = new Tablero(juego.length, juego[0].length, juego);
+            Tablero.imprimirTablero(tablero);
+            System.out.println();
+            tablero.comprimirTablero(tablero);
+            System.out.println("Imprimiendo tablero comprimido:");
             Tablero.imprimirTablero(tablero);
             System.out.println();
         }

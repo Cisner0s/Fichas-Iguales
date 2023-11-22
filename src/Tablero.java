@@ -44,6 +44,10 @@ public class Tablero {
         this.matriz = matriz;
     }
 
+    public void comprimirTablero(Tablero tablero){
+        tablero.moverFichasAbajo();
+        tablero.comprimirColumnas();
+    }
 
     public static void imprimirTablero(Tablero tablero){
         char[][] matriz = tablero.getMatriz();
@@ -69,5 +73,15 @@ public class Tablero {
             System.out.println();
         }
  
+    }
+
+    // Método para comprimir las columnas hacia la izquierda
+    private void comprimirColumnas() {
+    
+    }
+
+    // Método para mover las fichas hacia abajo en cada columna
+    private void moverFichasAbajo() {
+       
     }
 }
