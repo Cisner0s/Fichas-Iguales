@@ -6,16 +6,20 @@
 
 package src;
 
+import java.util.ArrayList;
+
 public class Tablero {
 
     int filas;
     int columnas;
     char[][] matriz;
+    ArrayList<Grupo> gruposDelTablero;
     
     public Tablero(int filas, int columnas, char[][] matriz){
         this.filas = filas;
         this.columnas = columnas;
         this.matriz = matriz;
+        calcularGrupos();
     }
 
     // Getter methods
@@ -99,7 +103,7 @@ public class Tablero {
         }
     }
  
-   public void calcularMovimientosPosibles(){
+   public void calcularGrupos(){
         boolean[][] visitado = new boolean[filas][columnas];
 
         for (int i = 0; i < filas; i++) {
@@ -107,10 +111,36 @@ public class Tablero {
                 if (!visitado[i][j] && matriz[i][j] != 'X' && matriz[i][j] != 'O') {
                     int numFichas = 0;
                     char color = matriz[i][j];
+                    Grupo grupoPosible = new Grupo();
                     System.out.println("Grupo de color " + color + ":");
-                    numFichas = identificarGrupo(matriz, visitado, i, j, color, numFichas);
+                    numFichas = identificarGrupo(matriz, visitado, i, j, color, numFichas, grupoPosible);
                     if(numFichas > 1){
                         System.out.println("Existe este Grupo con " + numFichas + " fichas.");
+
+                        grupoPosible.setColor(color);
+                        grupoPosible.setNumFichasEliminadas(numFichas);
+                        grupoPosible.setPuntos((numFichas - 2)*(numFichas - 2)); 
+
+                        ArrayList<int[]> fichasDelGrupoArrayList = grupoPosible.getListaFichas();
+                        int[] fichaMovimiento = fichasDelGrupoArrayList.get(0);
+                        double distanciaMinima = Math.sqrt(Math.pow(fichaMovimiento[0] - filas, 2) + Math.pow(fichaMovimiento[1] - 0, 2));
+
+                        for(int k = 1; k < grupoPosible.getNumFichasEliminadas(); k++ ){
+                            int[] fichaAComprobar = fichasDelGrupoArrayList.get(k);
+                            double distanciaAComprobar = Math.sqrt(Math.pow(fichaAComprobar[0] - filas, 2) + Math.pow(fichaAComprobar[1] - 0, 2));
+                            
+                            if(distanciaAComprobar < distanciaMinima){
+                                distanciaMinima = distanciaAComprobar;
+                                fichaMovimiento = fichaAComprobar;
+                            }
+                        }
+
+                        grupoPosible.setCoordenadaX(fichaMovimiento[0]);
+                        grupoPosible.setCoordenadaY(fichaMovimiento[1]);
+
+                        String movimiento = grupoPosible.generarMovimiento(grupoPosible);
+                        System.out.println(movimiento);
+
                     }else{
                         System.out.println("No exite este Grupo");
                     }
@@ -120,7 +150,7 @@ public class Tablero {
         }
     }
 
-    private int identificarGrupo(char[][] matriz, boolean[][] visitado, int fila, int columna, char color, int numFichas) {
+    private int identificarGrupo(char[][] matriz, boolean[][] visitado, int fila, int columna, char color, int numFichas, Grupo grupoPosible) {
         if (fila < 0 || fila >= filas || columna < 0 || columna >= columnas || visitado[fila][columna] || matriz[fila][columna] != color) {
             return numFichas;
         }
@@ -128,12 +158,14 @@ public class Tablero {
         numFichas= 1;
         visitado[fila][columna] = true;
         System.out.print("(" + fila + "," + columna + ") ");
+        int[] ficha = {fila, columna};
+        grupoPosible.añadirFicha(ficha);
 
-        int numFichasPorArriba = (identificarGrupo(matriz, visitado, fila - 1, columna, color, 0)); 
-        int numFichasPorDerecha = (identificarGrupo(matriz, visitado, fila, columna + 1, color, 0)); 
-        int numFichasPorAbajo = (identificarGrupo(matriz, visitado, fila + 1, columna, color, 0));
-        int numFichasPorIzquierda = (identificarGrupo(matriz, visitado, fila, columna - 1, color, 0));
-
+        int numFichasPorArriba = (identificarGrupo(matriz, visitado, fila - 1, columna, color, 0, grupoPosible)); 
+        int numFichasPorDerecha = (identificarGrupo(matriz, visitado, fila, columna + 1, color, 0, grupoPosible));
+        int numFichasPorAbajo = (identificarGrupo(matriz, visitado, fila + 1, columna, color, 0, grupoPosible)); 
+        int numFichasPorIzquierda = (identificarGrupo(matriz, visitado, fila, columna - 1, color, 0, grupoPosible));
+        
         numFichas = numFichas + numFichasPorAbajo + numFichasPorArriba + numFichasPorDerecha + numFichasPorIzquierda;
         return numFichas;
     }

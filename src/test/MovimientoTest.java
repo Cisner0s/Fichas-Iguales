@@ -1,5 +1,5 @@
 package src.test;
-import src.Movimiento;
+import src.Grupo;
 import org.junit.Test;
 
 //import org.junit.jupiter.api.Test;
@@ -8,76 +8,74 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-public class MovimientoTest {
+public class GrupoTest {
     
     @Test
-    public void testGettersMovimiento() {
-        Movimiento movimiento = new Movimiento(1, 2, 3, 4, 'A', 10);
+    public void testGettersGrupo() {
+        Grupo grupo = new Grupo(1, 2, 3, 4, 'A', 10);
 
-        assertEquals(1, movimiento.getNumMovimiento());
-        assertEquals(2, movimiento.getCoordenadaX());
-        assertEquals(3, movimiento.getCoordenadaY());
-        assertEquals(4, movimiento.getNumFichasEliminadas());
-        assertEquals('A', movimiento.getColor());
-        assertEquals(10, movimiento.getPuntos());
+        assertEquals(1, grupo.getNumGrupo());
+        assertEquals(2, grupo.getCoordenadaX());
+        assertEquals(3, grupo.getCoordenadaY());
+        assertEquals(4, grupo.getNumFichasEliminadas());
+        assertEquals('A', grupo.getColor());
+        assertEquals(10, grupo.getPuntos());
     }
 
     @Test
-    public void testSettersMovimiento() {
-        Movimiento movimiento = new Movimiento(1, 2, 3, 4, 'A', 10);
+    public void testSettersGrupo() {
+        Grupo grupo = new Grupo(1, 2, 3, 4, 'A', 10);
 
-        movimiento.setNumMovimiento(5);
-        movimiento.setCoordenadaX(6);
-        movimiento.setCoordenadaY(7);
-        movimiento.setNumFichasEliminadas(8);
-        movimiento.setColor('A');
-        movimiento.setPuntos(20);
+        grupo.setCoordenadaX(6);
+        grupo.setCoordenadaY(7);
+        grupo.setNumFichasEliminadas(8);
+        grupo.setColor('A');
+        grupo.setPuntos(20);
 
-        assertEquals(5, movimiento.getNumMovimiento());
-        assertEquals(6, movimiento.getCoordenadaX());
-        assertEquals(7, movimiento.getCoordenadaY());
-        assertEquals(8, movimiento.getNumFichasEliminadas());
-        assertEquals('A', movimiento.getColor());
-        assertEquals(20, movimiento.getPuntos());
+        assertEquals(5, grupo.getNumGrupo());
+        assertEquals(6, grupo.getCoordenadaX());
+        assertEquals(7, grupo.getCoordenadaY());
+        assertEquals(8, grupo.getNumFichasEliminadas());
+        assertEquals('A', grupo.getColor());
+        assertEquals(20, grupo.getPuntos());
     }
 
     
     @Test
-    public void testImprimirMovimientoUnPunto() {
-        Movimiento movimiento = new Movimiento(1, 2, 3, 3, 'A', 1);
+    public void testImprimirGrupoUnPunto() {
+        Grupo grupo = new Grupo(1, 2, 3, 3, 'A', 1);
 
         // Redirect System.out to capture printed output
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        // Call imprimirMovimiento
-        movimiento.imprimirMovimiento(movimiento);
+        // Call imprimirGrupo
+        grupo.imprimirGrupo(grupo);
 
         // Reset System.out
         System.setOut(System.out);
 
         // Verify the printed output
-        String expectedOutput = "Movimiento 1 en (2, 3): eliminó 3 fichas de color A y obtuvo 1 punto." + System.lineSeparator();
+        String expectedOutput = "Grupo 1 en (2, 3): eliminó 3 fichas de color A y obtuvo 1 punto." + System.lineSeparator();
         assertEquals(expectedOutput, outContent.toString());
     }
 
     @Test
-    public void testImprimirMovimientoMultiplesPuntos() {
-        Movimiento movimiento = new Movimiento(2, 1, 1, 5, 'A', 10);
+    public void testImprimirGrupoMultiplesPuntos() {
+        Grupo grupo = new Grupo(2, 1, 1, 5, 'A', 10);
 
         // Redirect System.out to capture printed output
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        // Call imprimirMovimiento
-        movimiento.imprimirMovimiento(movimiento);
+        // Call imprimirGrupo
+        grupo.imprimirGrupo(grupo);
 
         // Reset System.out
         System.setOut(System.out);
 
         // Verify the printed output
-        String expectedOutput = "Movimiento 2 en (1, 1): eliminó 5 fichas de color A y obtuvo 10 puntos." + System.lineSeparator();
+        String expectedOutput = "Grupo 2 en (1, 1): eliminó 5 fichas de color A y obtuvo 10 puntos." + System.lineSeparator();
         assertEquals(expectedOutput, outContent.toString());
     }
 }
-

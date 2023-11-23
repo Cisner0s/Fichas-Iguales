@@ -24,7 +24,7 @@ public class MainFichasIguales{
             Tablero.imprimirTablero(tablero);
             System.out.println();
             System.out.println("CALCULAR MOVIMIENTOS POSIBLES");
-            tablero.calcularMovimientosPosibles();
+            tablero.calcularGrupos();
             System.out.println();
         }
 
