@@ -23,6 +23,9 @@ public class MainFichasIguales{
             System.out.println("Imprimiendo tablero comprimido:");
             Tablero.imprimirTablero(tablero);
             System.out.println();
+            System.out.println("CALCULAR MOVIMIENTOS POSIBLES");
+            tablero.calcularMovimientosPosibles();
+            System.out.println();
         }
 
         // IMPRESION DE LAS MATRICES DE ENTRADA

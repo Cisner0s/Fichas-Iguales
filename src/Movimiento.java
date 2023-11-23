@@ -12,6 +12,7 @@ public class Movimiento {
     int numFichasEliminadas;
     char color;
     int puntos;
+    boolean probado;
 
     public Movimiento(int numMovimiento, int coordenadaX, int coordenadaY, int numFichasEliminadas, char color, int puntos){
         this.numMovimiento = numMovimiento;
@@ -20,6 +21,7 @@ public class Movimiento {
         this.numFichasEliminadas = numFichasEliminadas;
         this.color = color;
         this.puntos = puntos;
+        probado = false;
     }
 
     // Getter methods
@@ -47,6 +49,10 @@ public class Movimiento {
         return puntos;
     }
 
+    public boolean getProbado(){
+        return probado;
+    }
+
     // Setter methods
     public void setNumMovimiento(int numMovimiento) {
         this.numMovimiento = numMovimiento;
@@ -70,6 +76,10 @@ public class Movimiento {
 
     public void setPuntos(int puntos) {
         this.puntos = puntos;
+    }
+
+    public void setProbado(boolean probado){
+        this.probado = probado;
     }
 
     public void imprimirMovimiento(Movimiento movimiento){
