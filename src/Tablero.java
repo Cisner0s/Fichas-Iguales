@@ -46,7 +46,7 @@ public class Tablero {
 
     public void comprimirTablero(Tablero tablero){
         tablero.moverFichasAbajo();
-        tablero.comprimirColumnas();
+        tablero.moverColumnasVacias();
     }
 
     public static void imprimirTablero(Tablero tablero){
@@ -75,13 +75,55 @@ public class Tablero {
  
     }
 
-    // Método para comprimir las columnas hacia la izquierda
-    private void comprimirColumnas() {
-    
-    }
-
     // Método para mover las fichas hacia abajo en cada columna
     private void moverFichasAbajo() {
-       
+        for (int i = columnas - 1; i >= 0; i--) {       // Se recorre la matriz de abajo hacia arriba, columna a columna.
+            for (int j = filas - 1; j >= 0; j--) {
+                if(matriz[j][i] == 'X'){                // Si se encuentra un espacio se busca como rellenarlo.
+                    for (int k = j - 1; k >= 0; k--){   // Si hay un vacio se recorre la columna hacia arriba.  // POSIBLE OUT OF BOUNDS
+                        if(matriz[k][i] != 'X'){
+                            matriz[j][i] = matriz[k][i];
+                            matriz[k][i] = 'X';
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Método para comprimir las columnas hacia la izquierda
+    private void moverColumnasVacias() {
+        int filas = matriz.length;
+        int columnas = matriz[0].length;
+    
+        for (int j = 0; j < columnas; j++) {
+            boolean columnaVacia = true;
+    
+            // Verificar si la columna actual está vacía
+            for (int i = 0; i < filas; i++) {
+                if (matriz[i][j] != 'X') {
+                    columnaVacia = false;
+                    break;
+                }
+            }
+    
+            // Si la columna está vacía, mover las columnas restantes hacia la izquierda
+            if (columnaVacia) {
+                for (int k = j + 1; k < columnas; k++) {
+                    for (int i = 0; i < filas; i++) {
+                        matriz[i][k - 1] = matriz[i][k];
+                    }
+                }
+    
+                // Limpiar la última columna
+                for (int i = 0; i < filas; i++) {
+                    matriz[i][columnas - 1] = 0;  
+                }
+    
+                // Decrementar j para volver a verificar la nueva columna actual
+                j--;
+            }
+        }
     }
 }
