@@ -17,6 +17,11 @@ public class MainFichasIguales{
         for (int i = 0; i < todosLosJuegos.size(); i++) {
             char[][] juego = todosLosJuegos.get(i);
             Tablero tablero = new Tablero(juego.length, juego[0].length, juego);
+            EstrategiaOptima buscarEstrategiaOptima = new EstrategiaOptima(tablero);
+            buscarEstrategiaOptima.jugar(tablero, 0);
+            buscarEstrategiaOptima.imprimirSolucionOptima();
+            
+            /*
             Tablero.imprimirTablero(tablero);
             System.out.println();
             tablero.comprimirTablero(tablero);
@@ -26,6 +31,7 @@ public class MainFichasIguales{
             System.out.println("CALCULAR MOVIMIENTOS POSIBLES");
             tablero.calcularGrupos();
             System.out.println();
+            */
         }
 
         // IMPRESION DE LAS MATRICES DE ENTRADA

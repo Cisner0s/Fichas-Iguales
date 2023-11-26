@@ -26,7 +26,7 @@ public class Grupo{
         this.listaFichas = new ArrayList<>();
     }
 
-        public Grupo(int coordenadaX, int coordenadaY, int numFichasEliminadas, char color, int puntos){
+    public Grupo(int coordenadaX, int coordenadaY, int numFichasEliminadas, char color, int puntos){
         this.coordenadaX = coordenadaX;
         this.coordenadaY = coordenadaY;
         this.numFichasEliminadas = numFichasEliminadas;

@@ -19,7 +19,11 @@ public class Tablero {
         this.filas = filas;
         this.columnas = columnas;
         this.matriz = matriz;
-        calcularGrupos();
+        this.gruposDelTablero = new ArrayList<>();
+    }
+
+    public Tablero(){
+        this.gruposDelTablero = new ArrayList<>();
     }
 
     // Getter methods
@@ -33,6 +37,10 @@ public class Tablero {
 
      public char[][] getMatriz(){
         return this.matriz;
+    }
+
+    public ArrayList<Grupo> getGruposDelTablero() {
+        return gruposDelTablero;
     }
 
     // Setter methods
@@ -112,10 +120,10 @@ public class Tablero {
                     int numFichas = 0;
                     char color = matriz[i][j];
                     Grupo grupoPosible = new Grupo();
-                    System.out.println("Grupo de color " + color + ":");
+                    //System.out.println("Grupo de color " + color + ":");
                     numFichas = identificarGrupo(matriz, visitado, i, j, color, numFichas, grupoPosible);
                     if(numFichas > 1){
-                        System.out.println("Existe este Grupo con " + numFichas + " fichas.");
+                        //System.out.println("Existe este Grupo con " + numFichas + " fichas.");
 
                         grupoPosible.setColor(color);
                         grupoPosible.setNumFichasEliminadas(numFichas);
@@ -142,7 +150,7 @@ public class Tablero {
                         System.out.println(movimiento);
 
                     }else{
-                        System.out.println("No exite este Grupo");
+                        //System.out.println("No exite este Grupo");
                     }
                     System.out.println();
                 }
@@ -157,7 +165,7 @@ public class Tablero {
 
         numFichas= 1;
         visitado[fila][columna] = true;
-        System.out.print("(" + fila + "," + columna + ") ");
+        //System.out.print("(" + fila + "," + columna + ") ");
         int[] ficha = {fila, columna};
         grupoPosible.añadirFicha(ficha);
 
@@ -168,6 +176,26 @@ public class Tablero {
         
         numFichas = numFichas + numFichasPorAbajo + numFichasPorArriba + numFichasPorDerecha + numFichasPorIzquierda;
         return numFichas;
+    }
+
+    public void borrarGrupoSeleccionado(Grupo grupo){
+        for (int i = 0; i < gruposDelTablero.size(); i++) {
+            if(gruposDelTablero.get(i).equals(grupo)){
+                gruposDelTablero.get(i).setProbado(true);
+            }
+        }
+
+        for (int i = 0; i < grupo.getListaFichas().size(); i++) {
+            int[] fichaEliminada = grupo.getListaFichas().get(i);
+
+            this.matriz[fichaEliminada[0]][fichaEliminada[1]] = 'X';
+        }
+    }
+
+    public void copiar(Tablero tableroOriginal){
+        this.setColumnas(tableroOriginal.getColumnas());
+        this.setFilas(tableroOriginal.getFilas());
+        this.setMatriz(tableroOriginal.getMatriz());
     }
 
     public static void imprimirTablero(Tablero tablero){
