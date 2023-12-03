@@ -120,10 +120,10 @@ public class Tablero {
                     int numFichas = 0;
                     char color = matriz[i][j];
                     Grupo grupoPosible = new Grupo();
-                    //System.out.println("Grupo de color " + color + ":");
+                    System.out.println("Grupo de color " + color + ":");
                     numFichas = identificarGrupo(matriz, visitado, i, j, color, numFichas, grupoPosible);
                     if(numFichas > 1){
-                        //System.out.println("Existe este Grupo con " + numFichas + " fichas.");
+                        System.out.println("Existe este Grupo con " + numFichas + " fichas.");
 
                         grupoPosible.setColor(color);
                         grupoPosible.setNumFichasEliminadas(numFichas);
@@ -150,7 +150,7 @@ public class Tablero {
                         System.out.println(movimiento);
 
                     }else{
-                        //System.out.println("No exite este Grupo");
+                        System.out.println("No exite este Grupo");
                     }
                     System.out.println();
                 }
