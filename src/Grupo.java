@@ -102,15 +102,15 @@ public class Grupo{
         listaFichas.add(ficha);
     }
 
-    public String generarMovimiento(Grupo grupo) {
+    public String generarMovimiento(Grupo grupo, int numFilas) {
         String movimiento;
         if (grupo.getNumFichasEliminadas() == 3) {
-            movimiento = ("Grupo en (" + grupo.getCoordenadaX() +
-                    ", " + grupo.getCoordenadaY() + "): eliminó " + grupo.getNumFichasEliminadas() +
+            movimiento = ("Grupo en (" + (numFilas - grupo.getCoordenadaX()) +
+                    ", " + (grupo.getCoordenadaY() + 1) + "): eliminó " + grupo.getNumFichasEliminadas() +
                     " fichas de color " + grupo.getColor() + " y obtuvo " + grupo.getPuntos() + " punto.");
         } else {
-            movimiento = ("Grupo en (" + grupo.getCoordenadaX() +
-                    ", " + grupo.getCoordenadaY() + "): eliminó " + grupo.getNumFichasEliminadas() +
+            movimiento = ("Grupo en (" + (numFilas - grupo.getCoordenadaX()) +
+                    ", " + (grupo.getCoordenadaY() + 1) + "): eliminó " + grupo.getNumFichasEliminadas() +
                     " fichas de color " + grupo.getColor() + " y obtuvo " + grupo.getPuntos() + " puntos.");
         }
 

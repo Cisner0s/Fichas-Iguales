@@ -57,8 +57,28 @@ public class Tablero {
     }
 
     public void comprimirTablero(Tablero tablero){
+        // ELIMINAR UNA VEZ SE FINALICE EL DESARROLLO.
+        System.out.println("TABLERO SIN COMPRIMIR:");
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                System.out.print(matriz[i][j] + " ");
+            }
+            System.out.println(); // Nueva línea para cada fila
+        }
+        System.out.println(); // Nueva línea entre matrices
+
         tablero.moverFichasAbajo();
         tablero.moverColumnasVacias();
+
+        // ELIMINAR UNA VEZ SE FINALICE EL DESARROLLO.
+        System.out.println("TABLERO COMPRIMIDO:");
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                System.out.print(matriz[i][j] + " ");
+            }
+            System.out.println(); // Nueva línea para cada fila
+        }
+        System.out.println(); // Nueva línea entre matrices
     }
 
     public void moverFichasAbajo() {
@@ -120,10 +140,10 @@ public class Tablero {
                     int numFichas = 0;
                     char color = matriz[i][j];
                     Grupo grupoPosible = new Grupo();
-                    System.out.println("Grupo de color " + color + ":");
+                    //System.out.println("Grupo de color " + color + ":");
                     numFichas = identificarGrupo(matriz, visitado, i, j, color, numFichas, grupoPosible);
                     if(numFichas > 1){
-                        System.out.println("Existe este Grupo con " + numFichas + " fichas.");
+                        //System.out.println("Existe este Grupo con " + numFichas + " fichas.");
 
                         grupoPosible.setColor(color);
                         grupoPosible.setNumFichasEliminadas(numFichas);
@@ -146,11 +166,14 @@ public class Tablero {
                         grupoPosible.setCoordenadaX(fichaMovimiento[0]);
                         grupoPosible.setCoordenadaY(fichaMovimiento[1]);
 
-                        String movimiento = grupoPosible.generarMovimiento(grupoPosible);
+                        gruposDelTablero.add(grupoPosible);
+
+                        // Trazas para ver que hace la funcion.
+                        String movimiento = grupoPosible.generarMovimiento(grupoPosible, filas);
                         System.out.println(movimiento);
 
                     }else{
-                        System.out.println("No exite este Grupo");
+                        //System.out.println("No exite este Grupo");
                     }
                     System.out.println();
                 }
