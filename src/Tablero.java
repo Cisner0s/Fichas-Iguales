@@ -180,6 +180,7 @@ public class Tablero {
                 }
             }
         }
+        ordenarGruposLexicograficamente();
     }
 
     private int identificarGrupo(char[][] matriz, boolean[][] visitado, int fila, int columna, char color, int numFichas, Grupo grupoPosible) {
@@ -230,6 +231,100 @@ public class Tablero {
         this.setMatriz(nuevaMatriz);
     }
 
+    /* 
+    public void ordenarGruposLexicograficamente() {
+        for (int i = 0; i < gruposDelTablero.size() - 1; i++) {
+            for (int j = i + 1; j < gruposDelTablero.size(); j++) {
+                Grupo grupo1 = gruposDelTablero.get(i);
+                Grupo grupo2 = gruposDelTablero.get(j);
+
+                // Comparar por coordenada X
+                if (grupo1.getCoordenadaX() > grupo2.getCoordenadaX()) {
+                    intercambiarGrupos(i, j);
+                } else if (grupo1.getCoordenadaX() == grupo2.getCoordenadaX()) {
+                    // Si las coordenadas X son iguales, comparar por coordenada Y
+                    if (grupo1.getCoordenadaY() > grupo2.getCoordenadaY()) {
+                        intercambiarGrupos(i, j);
+                    } else if (grupo1.getCoordenadaY() == grupo2.getCoordenadaY()) {
+                        // Si las coordenadas X e Y son iguales, comparar por número de fichas eliminadas
+                        if (grupo1.getNumFichasEliminadas() > grupo2.getNumFichasEliminadas()) {
+                            intercambiarGrupos(i, j);
+                        } else if (grupo1.getNumFichasEliminadas() == grupo2.getNumFichasEliminadas()) {
+                            // Si las coordenadas X, Y y el número de fichas son iguales, comparar por color
+                            if (grupo1.getColor() > grupo2.getColor()) {
+                                intercambiarGrupos(i, j);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    */
+    private void intercambiarGrupos(int indice1, int indice2) {
+        Grupo temp = gruposDelTablero.get(indice1);
+        gruposDelTablero.set(indice1, gruposDelTablero.get(indice2));
+        gruposDelTablero.set(indice2, temp);
+    }
+    
+    public void ordenarGruposLexicograficamente() {
+        for (int i = 0; i < gruposDelTablero.size() - 1; i++) {
+            for (int j = i + 1; j < gruposDelTablero.size(); j++) {
+                Grupo grupo1 = gruposDelTablero.get(i);
+                Grupo grupo2 = gruposDelTablero.get(j);
+    
+                // Comparar por coordenada X
+                if (grupo1.getCoordenadaX() < grupo2.getCoordenadaX()) {
+                    intercambiarGrupos(i, j);
+                } else if (grupo1.getCoordenadaX() == grupo2.getCoordenadaX()) {
+                    // Si las coordenadas X son iguales, comparar por coordenada Y
+                    if (grupo1.getCoordenadaY() < grupo2.getCoordenadaY()) {
+                        intercambiarGrupos(i, j);
+                    } else if (grupo1.getCoordenadaY() == grupo2.getCoordenadaY()) {
+                        // Si las coordenadas X e Y son iguales, comparar por número de fichas eliminadas
+                        if (grupo1.getNumFichasEliminadas() < grupo2.getNumFichasEliminadas()) {
+                            intercambiarGrupos(i, j);
+                        } else if (grupo1.getNumFichasEliminadas() == grupo2.getNumFichasEliminadas()) {
+                            // Si las coordenadas X, Y y el número de fichas son iguales, comparar por color
+                            if (grupo1.getColor() < grupo2.getColor()) {
+                                intercambiarGrupos(i, j);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    
+        for (int i = 0; i < gruposDelTablero.size(); i++) {
+            // Después de ordenar los grupos por coordenadas, ordenar las listas de fichas de cada grupo
+            ordenarListasDeFichasLexicograficamente(gruposDelTablero.get(i));
+        }
+    }
+    
+    private void ordenarListasDeFichasLexicograficamente(Grupo grupo) {
+        ArrayList<int[]> listaFichas = grupo.getListaFichas();
+        int n = listaFichas.size();
+    
+        // Implementación de un algoritmo de ordenación lexicográfica (selección)
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = i + 1; j < n; j++) {
+                int[] ficha1 = listaFichas.get(i);
+                int[] ficha2 = listaFichas.get(j);
+    
+                // Comparar por coordenada X de la ficha o por coordenada Y en caso de empate en X
+                if (ficha2[0] < ficha1[0] || (ficha2[0] == ficha1[0] && ficha2[1] < ficha1[1])) {
+                    // Intercambiar fichas si están en el orden incorrecto
+                    int[] temp = listaFichas.get(i);
+                    listaFichas.set(i, listaFichas.get(j));
+                    listaFichas.set(j, temp);
+                }
+            }
+        }
+    }
+    
+    
+        
 
     public static void imprimirTablero(Tablero tablero){
         char[][] matriz = tablero.getMatriz();

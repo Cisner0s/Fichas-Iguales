@@ -20,10 +20,14 @@ public class MainFichasIguales{
             EstrategiaOptima buscarEstrategiaOptima = new EstrategiaOptima(tablero);
             buscarEstrategiaOptima.jugar(tablero, 0);
             System.out.print("Juego " + (++i) + "\n");
-            buscarEstrategiaOptima.imprimirSolucionOptima();
-            System.out.print("\n");
-
             --i;
+            buscarEstrategiaOptima.imprimirSolucionOptima();
+            if(i != todosLosJuegos.size() - 1){
+                System.out.print("\n");
+            }
+            
+
+            
             /*
             Tablero.imprimirTablero(tablero);
             System.out.println();

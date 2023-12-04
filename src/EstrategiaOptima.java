@@ -107,6 +107,10 @@ public class EstrategiaOptima {
         if(puntuacion > puntuacionOptima){
             puntuacionOptima = puntuacion;
             return true;
+
+        //}else if(puntuacion == puntuacionOptima){
+
+        
         }else{
             return false;
         }
