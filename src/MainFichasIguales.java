@@ -19,8 +19,11 @@ public class MainFichasIguales{
             Tablero tablero = new Tablero(juego.length, juego[0].length, juego);
             EstrategiaOptima buscarEstrategiaOptima = new EstrategiaOptima(tablero);
             buscarEstrategiaOptima.jugar(tablero, 0);
+            System.out.print("Juego " + (++i) + "\n");
             buscarEstrategiaOptima.imprimirSolucionOptima();
-            
+            System.out.print("\n");
+
+            --i;
             /*
             Tablero.imprimirTablero(tablero);
             System.out.println();
@@ -35,16 +38,16 @@ public class MainFichasIguales{
         }
 
         // IMPRESION DE LAS MATRICES DE ENTRADA
-        for (char[][] juego : todosLosJuegos) {
-            System.out.println("Matriz:");
-            for (int i = 0; i < juego.length; i++) {
-                for (int j = 0; j < juego[i].length; j++) {
-                    System.out.print(juego[i][j] + " ");
-                }
-                System.out.println(); // Nueva línea para cada fila
-            }
-            System.out.println(); // Nueva línea entre matrices
-        }
+        // for (char[][] juego : todosLosJuegos) {
+        //     System.out.println("Matriz:");
+        //     for (int i = 0; i < juego.length; i++) {
+        //         for (int j = 0; j < juego[i].length; j++) {
+        //             System.out.print(juego[i][j] + " ");
+        //         }
+        //         System.out.println(); // Nueva línea para cada fila
+        //     }
+        //     System.out.println(); // Nueva línea entre matrices
+        // }
  
     }
 
