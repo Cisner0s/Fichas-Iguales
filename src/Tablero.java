@@ -7,6 +7,7 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Tablero {
 
@@ -215,11 +216,20 @@ public class Tablero {
         }
     }
 
-    public void copiar(Tablero tableroOriginal){
+    public void copiar(Tablero tableroOriginal) {
         this.setColumnas(tableroOriginal.getColumnas());
         this.setFilas(tableroOriginal.getFilas());
-        this.setMatriz(tableroOriginal.getMatriz());
+
+        // Realizar una copia profunda de la matriz
+        char[][] matrizOriginal = tableroOriginal.getMatriz();
+        char[][] nuevaMatriz = new char[matrizOriginal.length][];
+        for (int i = 0; i < matrizOriginal.length; i++) {
+            nuevaMatriz[i] = Arrays.copyOf(matrizOriginal[i], matrizOriginal[i].length);
+        }
+
+        this.setMatriz(nuevaMatriz);
     }
+
 
     public static void imprimirTablero(Tablero tablero){
         char[][] matriz = tablero.getMatriz();

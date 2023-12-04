@@ -105,11 +105,11 @@ public class Grupo{
     public String generarMovimiento(Grupo grupo, int numFilas) {
         String movimiento;
         if (grupo.getNumFichasEliminadas() == 3) {
-            movimiento = ("Grupo en (" + (numFilas - grupo.getCoordenadaX()) +
+            movimiento = (" en (" + (numFilas - grupo.getCoordenadaX()) +
                     ", " + (grupo.getCoordenadaY() + 1) + "): eliminó " + grupo.getNumFichasEliminadas() +
                     " fichas de color " + grupo.getColor() + " y obtuvo " + grupo.getPuntos() + " punto.");
         } else {
-            movimiento = ("Grupo en (" + (numFilas - grupo.getCoordenadaX()) +
+            movimiento = (" en (" + (numFilas - grupo.getCoordenadaX()) +
                     ", " + (grupo.getCoordenadaY() + 1) + "): eliminó " + grupo.getNumFichasEliminadas() +
                     " fichas de color " + grupo.getColor() + " y obtuvo " + grupo.getPuntos() + " puntos.");
         }
