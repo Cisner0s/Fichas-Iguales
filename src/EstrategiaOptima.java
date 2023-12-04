@@ -62,7 +62,7 @@ public class EstrategiaOptima {
                 solucionOptima.clear();
                 solucionOptima.addAll(new ArrayList<>(solucionPosible));
             }
-            fichasRestantes = 0;
+            //fichasRestantes = 0;
             return;
         }
     
@@ -92,20 +92,22 @@ public class EstrategiaOptima {
     
 
     public boolean solucion(int puntuacion, char[][] matrizFinal){
+        int fichasRestantesTemporal = 0;
         for (int i = 0; i < matrizFinal.length; i++) {
             for (int j = 0; j < matrizFinal[0].length; j++) {
                 if(matrizFinal[i][j] != 'O' & matrizFinal[i][j] != 'X'){
-                    fichasRestantes ++;
+                    fichasRestantesTemporal ++;
                 }
             }
         }
 
-        if(fichasRestantes == 0){
+        if(fichasRestantesTemporal == 0){
             puntuacion += 1000;
         }
 
-        if(puntuacion > puntuacionOptima){
+        if(puntuacion > puntuacionOptima || puntuacion == 0 & puntuacionOptima == 0){
             puntuacionOptima = puntuacion;
+            fichasRestantes = fichasRestantesTemporal;
             return true;
 
         //}else if(puntuacion == puntuacionOptima){

@@ -19,7 +19,7 @@ public class MainFichasIguales{
             Tablero tablero = new Tablero(juego.length, juego[0].length, juego);
             EstrategiaOptima buscarEstrategiaOptima = new EstrategiaOptima(tablero);
             buscarEstrategiaOptima.jugar(tablero, 0);
-            System.out.print("Juego " + (++i) + "\n");
+            System.out.print("Juego " + (++i) + ":" + "\n");
             --i;
             buscarEstrategiaOptima.imprimirSolucionOptima();
             if(i != todosLosJuegos.size() - 1){
