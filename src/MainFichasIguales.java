@@ -84,6 +84,11 @@ public class MainFichasIguales{
             ArrayList<Character> juegoArrayList = new ArrayList<>();
 
             for(char fragmento : primeraFilaFragmentada) {
+                if(fragmento != 'V' & fragmento != 'R' & fragmento != 'A'){
+                    sc.close();
+                    throw new IllegalArgumentException("No existe el color introducido.");
+                }
+
                 juegoArrayList.add(fragmento);
             }
 
@@ -95,6 +100,10 @@ public class MainFichasIguales{
                 char[] lineafragmentada = linea.toCharArray();
                 if(lineafragmentada.length == numeroColumnas){
                     for(char fragmento : lineafragmentada){
+                        if(fragmento != 'V' & fragmento != 'R' & fragmento != 'A'){
+                            sc.close();
+                            throw new IllegalArgumentException("No existe el color introducido.");
+                        }
                         juegoArrayList.add(fragmento);
                     }
                 } else {
