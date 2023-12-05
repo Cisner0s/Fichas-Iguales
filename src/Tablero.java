@@ -1,62 +1,121 @@
-// Clase Tablero:
-//     Atributos: Número de filas, número de columnas, matriz del tablero.
-//     Métodos:
-//         Método para cargar la configuración inicial del tablero.
-//         Método para imprimir el estado actual del tablero.
-
 package src;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * La clase Tablero representa el tablero de juego en el juego Fichas Iguales.
+ * Contiene información sobre el número de filas y columnas, una matriz que representa el estado actual del tablero,
+ * y una lista de grupos presentes en el tablero.
+ */
 public class Tablero {
 
+    // Número de filas en el tablero
     int filas;
+
+    // Número de columnas en el tablero
     int columnas;
+
+    // Matriz que representa el estado actual del tablero
     char[][] matriz;
+
+    // Lista de grupos presentes en el tablero
     ArrayList<Grupo> gruposDelTablero;
-    
-    public Tablero(int filas, int columnas, char[][] matriz){
+
+    /**
+     * Constructor para un Tablero con un número específico de filas, columnas y una matriz inicial.
+     *
+     * @param filas    Número de filas en el tablero.
+     * @param columnas Número de columnas en el tablero.
+     * @param matriz   Matriz que representa el estado inicial del tablero.
+     */
+    public Tablero(int filas, int columnas, char[][] matriz) {
         this.filas = filas;
         this.columnas = columnas;
         this.matriz = matriz;
         this.gruposDelTablero = new ArrayList<>();
     }
 
-    public Tablero(){
+    /**
+     * Constructor por defecto para un Tablero.
+     * Inicializa la lista de grupos del tablero como una nueva instancia de ArrayList.
+     */
+    public Tablero() {
         this.gruposDelTablero = new ArrayList<>();
     }
 
     // Getter methods
-    public int getFilas(){
+
+    /**
+     * Obtiene el número de filas en el tablero.
+     *
+     * @return Número de filas en el tablero.
+     */
+    public int getFilas() {
         return this.filas;
     }
 
-     public int getColumnas(){
+    /**
+     * Obtiene el número de columnas en el tablero.
+     *
+     * @return Número de columnas en el tablero.
+     */
+    public int getColumnas() {
         return this.columnas;
     }
 
-     public char[][] getMatriz(){
+    /**
+     * Obtiene la matriz que representa el estado actual del tablero.
+     *
+     * @return Matriz que representa el estado actual del tablero.
+     */
+    public char[][] getMatriz() {
         return this.matriz;
     }
 
+    /**
+     * Obtiene la lista de grupos presentes en el tablero.
+     *
+     * @return Lista de grupos presentes en el tablero.
+     */
     public ArrayList<Grupo> getGruposDelTablero() {
         return gruposDelTablero;
     }
 
     // Setter methods
-    public void setFilas(int filas){
+
+    /**
+     * Establece el número de filas en el tablero.
+     *
+     * @param filas Nuevo número de filas en el tablero.
+     */
+    public void setFilas(int filas) {
         this.filas = filas;
     }
 
-     public void setColumnas(int columnas){
+    /**
+     * Establece el número de columnas en el tablero.
+     *
+     * @param columnas Nuevo número de columnas en el tablero.
+     */
+    public void setColumnas(int columnas) {
         this.columnas = columnas;
     }
 
-     public void setMatriz(char[][] matriz){
+    /**
+     * Establece la matriz que representa el estado actual del tablero.
+     *
+     * @param matriz Nueva matriz que representa el estado actual del tablero.
+     */
+    public void setMatriz(char[][] matriz) {
         this.matriz = matriz;
     }
 
+    /**
+     * Comprime el tablero eliminando filas y columnas vacías.
+     *
+     * @param tablero Tablero que se va a comprimir.
+     */
     public void comprimirTablero(Tablero tablero){
         // // ELIMINAR UNA VEZ SE FINALICE EL DESARROLLO.
         // System.out.println("TABLERO SIN COMPRIMIR:");
@@ -82,6 +141,9 @@ public class Tablero {
         // System.out.println(); // Nueva línea entre matrices
     }
 
+    /**
+     * Mueve las fichas hacia abajo en la matriz del tablero.
+     */
     public void moverFichasAbajo() {
         for (int i = columnas - 1; i >= 0; i--) {       // Se recorre la matriz de abajo hacia arriba, columna a columna.
             for (int j = filas - 1; j >= 0; j--) {
@@ -98,6 +160,9 @@ public class Tablero {
         }
     }
 
+    /**
+     * Mueve las columnas vacías hacia la izquierda en la matriz del tablero.
+     */
     public void moverColumnasVacias() {
         int filas = matriz.length;
         int columnas = matriz[0].length;
@@ -132,7 +197,10 @@ public class Tablero {
         }
     }
  
-   public void calcularGrupos(){
+    /**
+     * Calcula los grupos presentes en el tablero y los agrega a la lista de grupos.
+     */
+    public void calcularGrupos(){
         boolean[][] visitado = new boolean[filas][columnas];
 
         for (int i = 0; i < filas; i++) {
@@ -183,6 +251,18 @@ public class Tablero {
         ordenarGruposLexicograficamente();
     }
 
+    /**
+     * Identifica un grupo recursivamente en la matriz del tablero.
+     *
+     * @param matriz     Matriz del tablero.
+     * @param visitado   Matriz que rastrea las celdas visitadas.
+     * @param fila       Fila actual en la que se está buscando el grupo.
+     * @param columna    Columna actual en la que se está buscando el grupo.
+     * @param color      Color del grupo.
+     * @param numFichas  Número de fichas en el grupo.
+     * @param grupoPosible Grupo que se está identificando.
+     * @return Número de fichas en el grupo.
+     */
     private int identificarGrupo(char[][] matriz, boolean[][] visitado, int fila, int columna, char color, int numFichas, Grupo grupoPosible) {
         if (fila < 0 || fila >= filas || columna < 0 || columna >= columnas || visitado[fila][columna] || matriz[fila][columna] != color) {
             return numFichas;
@@ -203,6 +283,11 @@ public class Tablero {
         return numFichas;
     }
 
+    /**
+     * Borra un grupo seleccionado del tablero.
+     *
+     * @param grupo Grupo que se va a borrar.
+     */
     public void borrarGrupoSeleccionado(Grupo grupo){
         for (int i = 0; i < gruposDelTablero.size(); i++) {
             if(gruposDelTablero.get(i).equals(grupo)){
@@ -217,6 +302,11 @@ public class Tablero {
         }
     }
 
+    /**
+     * Realiza una copia profunda de otro tablero.
+     *
+     * @param tableroOriginal Tablero que se va a copiar.
+     */
     public void copiar(Tablero tableroOriginal) {
         this.setColumnas(tableroOriginal.getColumnas());
         this.setFilas(tableroOriginal.getFilas());
@@ -231,43 +321,21 @@ public class Tablero {
         this.setMatriz(nuevaMatriz);
     }
 
-    /* 
-    public void ordenarGruposLexicograficamente() {
-        for (int i = 0; i < gruposDelTablero.size() - 1; i++) {
-            for (int j = i + 1; j < gruposDelTablero.size(); j++) {
-                Grupo grupo1 = gruposDelTablero.get(i);
-                Grupo grupo2 = gruposDelTablero.get(j);
-
-                // Comparar por coordenada X
-                if (grupo1.getCoordenadaX() > grupo2.getCoordenadaX()) {
-                    intercambiarGrupos(i, j);
-                } else if (grupo1.getCoordenadaX() == grupo2.getCoordenadaX()) {
-                    // Si las coordenadas X son iguales, comparar por coordenada Y
-                    if (grupo1.getCoordenadaY() > grupo2.getCoordenadaY()) {
-                        intercambiarGrupos(i, j);
-                    } else if (grupo1.getCoordenadaY() == grupo2.getCoordenadaY()) {
-                        // Si las coordenadas X e Y son iguales, comparar por número de fichas eliminadas
-                        if (grupo1.getNumFichasEliminadas() > grupo2.getNumFichasEliminadas()) {
-                            intercambiarGrupos(i, j);
-                        } else if (grupo1.getNumFichasEliminadas() == grupo2.getNumFichasEliminadas()) {
-                            // Si las coordenadas X, Y y el número de fichas son iguales, comparar por color
-                            if (grupo1.getColor() > grupo2.getColor()) {
-                                intercambiarGrupos(i, j);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    */
+     /**
+     * Intercambia dos grupos en la lista de grupos del tablero.
+     *
+     * @param indice1 Índice del primer grupo.
+     * @param indice2 Índice del segundo grupo.
+     */
     private void intercambiarGrupos(int indice1, int indice2) {
         Grupo temp = gruposDelTablero.get(indice1);
         gruposDelTablero.set(indice1, gruposDelTablero.get(indice2));
         gruposDelTablero.set(indice2, temp);
     }
     
+    /**
+     * Ordena los grupos lexicográficamente en el tablero.
+     */
     public void ordenarGruposLexicograficamente() {
         for (int i = 0; i < gruposDelTablero.size() - 1; i++) {
             for (int j = i + 1; j < gruposDelTablero.size(); j++) {
@@ -302,6 +370,11 @@ public class Tablero {
         }
     }
     
+    /**
+     * Ordena lexicográficamente la lista de fichas de un grupo dado.
+     *
+     * @param grupo Grupo cuya lista de fichas se va a ordenar.
+     */
     private void ordenarListasDeFichasLexicograficamente(Grupo grupo) {
         ArrayList<int[]> listaFichas = grupo.getListaFichas();
         int n = listaFichas.size();
@@ -323,9 +396,11 @@ public class Tablero {
         }
     }
     
-    
-        
-
+    /**
+     * Imprime el estado actual del tablero en la consola.
+     *
+     * @param tablero Tablero que se va a imprimir.
+     */
     public static void imprimirTablero(Tablero tablero){
         char[][] matriz = tablero.getMatriz();
 
@@ -349,6 +424,5 @@ public class Tablero {
             // Salto de línea después de cada fila
             System.out.println();
         }
- 
     }
 }

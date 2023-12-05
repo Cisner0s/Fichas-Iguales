@@ -1,58 +1,47 @@
-// Clase EstrategiaOptima:
-    //     Atributos: Instancia del juego actual.
-    //     Método para encontrar el conjunto de movimientos que da la mayor puntuación posible.
-
-
 package src;
 
 import java.util.ArrayList;
 
+/**
+ * La clase EstrategiaOptima implementa un algoritmo recursivo para encontrar la solución óptima en el juego Fichas Iguales.
+ * Utiliza una estrategia de backtracking para evaluar todas las posibles combinaciones y selecciona la solución con la mayor puntuación.
+ */
 public class EstrategiaOptima {
 
+    // Tablero inicial para la estrategia
     Tablero tableroInicial;
+
+    // Puntuación de la solución óptima
     int puntuacionOptima;
+
+    // Número de fichas restantes en la solución óptima
     int fichasRestantes;
+
+    // Lista de grupos en la solución óptima
     ArrayList<Grupo> solucionOptima;
+
+    // Lista temporal de grupos en la solución posible
     ArrayList<Grupo> solucionPosible;
 
-    public EstrategiaOptima(Tablero tableroInicial){
+    /**
+     * Constructor para la EstrategiaOptima.
+     *
+     * @param tableroInicial Tablero inicial para la estrategia.
+     */
+    public EstrategiaOptima(Tablero tableroInicial) {
         this.tableroInicial = tableroInicial;
         this.solucionOptima = new ArrayList<>();
         this.solucionPosible = new ArrayList<>();
         this.puntuacionOptima = 0;
         this.fichasRestantes = 0;
-
     }
 
-    public Tablero getTableroInicial() {
-        return tableroInicial;
-    }
-
-    public void setTableroInicial(Tablero tableroInicial) {
-        this.tableroInicial = tableroInicial;
-    }
-
-    public int getPuntuacionOptima() {
-        return puntuacionOptima;
-    }
-
-    public void setPuntuacionOptima(int puntuacionOptima) {
-        this.puntuacionOptima = puntuacionOptima;
-    }
-
-    public ArrayList<Grupo> getSolucionOptima() {
-        return solucionOptima;
-    }
-
-    public void setSolucionOptima(ArrayList<Grupo> solucionOptima) {
-        this.solucionOptima = solucionOptima;
-    }
-
-    public boolean tabletoLimpio(){
-        return true;
-    }
-    
-
+    /**
+     * Inicia el proceso de juego y encuentra la solución óptima.
+     *
+     * @param tableroActual Tablero actual en el proceso de juego.
+     * @param puntuacion    Puntuación acumulada durante el proceso de juego.
+     */
     public void jugar(Tablero tableroActual, int puntuacion) {
         tableroActual.comprimirTablero(tableroActual);
         tableroActual.calcularGrupos();
@@ -88,9 +77,13 @@ public class EstrategiaOptima {
         }
     }
     
-    
-    
-
+    /**
+     * Verifica si una solución es mejor que la actual basándose en la puntuación y las fichas restantes.
+     *
+     * @param puntuacion    Puntuación acumulada en la solución actual.
+     * @param matrizFinal   Matriz final del tablero en la solución actual.
+     * @return `true` si la solución es mejor, `false` de lo contrario.
+     */
     public boolean solucion(int puntuacion, char[][] matrizFinal){
         int fichasRestantesTemporal = 0;
         for (int i = 0; i < matrizFinal.length; i++) {
@@ -117,7 +110,10 @@ public class EstrategiaOptima {
             return false;
         }
     }
-    
+
+    /**
+     * Imprime la solución óptima en la consola.
+     */
     public void imprimirSolucionOptima(){
         for (int i = 0; i < solucionOptima.size(); i++) {
            Grupo grupoSolucion = solucionOptima.get(i);
