@@ -12,13 +12,19 @@ public class MainFichasIguales{
     public static void main(String[] args) throws Exception {
         
         ArrayList<char[][]> todosLosJuegos = new ArrayList<>();
-        leerEntrada(todosLosJuegos);
+        try {
+            leerEntrada(todosLosJuegos);
+        } catch (IllegalArgumentException e) {
+           // System.out.println("Error en la entrada: " + e.getMessage());
+           System.out.println();
+        }
 
         for (int i = 0; i < todosLosJuegos.size(); i++) {
             char[][] juego = todosLosJuegos.get(i);
             Tablero tablero = new Tablero(juego.length, juego[0].length, juego);
             EstrategiaOptima buscarEstrategiaOptima = new EstrategiaOptima(tablero);
             buscarEstrategiaOptima.jugar(tablero, 0);
+
             System.out.print("Juego " + (++i) + ":" + "\n");
             --i;
             buscarEstrategiaOptima.imprimirSolucionOptima();
@@ -55,18 +61,19 @@ public class MainFichasIguales{
  
     }
 
-    public static void leerEntrada(ArrayList<char[][]> todosLosJuegos) throws IllegalArgumentException{
+    public static void leerEntrada(ArrayList<char[][]> todosLosJuegos) throws IllegalArgumentException {
         Scanner sc = new Scanner(System.in);
         int numeroDeJuegos = Integer.parseInt(sc.nextLine());
-        if(numeroDeJuegos < 1){
+
+        if (numeroDeJuegos < 1) {
             sc.close();
             throw new IllegalArgumentException("El número de juegos debe ser al menos 1.");
         }
-        
-        String lineaVacia = sc.nextLine(); // Sirve para saltarse la primera linea en blanco.
-        if(!lineaVacia.isEmpty()){
+
+        String lineaVacia = sc.nextLine(); // Saltar la primera línea en blanco.
+        if (!lineaVacia.isEmpty()) {
             sc.close();
-            throw new IllegalArgumentException("No existe la linea en blanco necesaria entre el numero que indica la cantidad de juegos y el primer juego.");
+            throw new IllegalArgumentException("No existe la línea en blanco necesaria entre el número que indica la cantidad de juegos y el primer juego.");
         }
 
         for (int i = 0; i < numeroDeJuegos; i++) {
@@ -76,34 +83,27 @@ public class MainFichasIguales{
 
             int numeroColumnas = primeraFilaFragmentada.length;
 
-            if(numeroColumnas > 20){
-                System.out.println("Numero de columnas incorrecto en el juego " + (i+1) + ".");
-                break;
+            if (numeroColumnas > 20) {
+                sc.close();
+                throw new IllegalArgumentException("Número de columnas incorrecto en el juego " + (i + 1) + ".");
             }
 
             ArrayList<Character> juegoArrayList = new ArrayList<>();
 
-            for(char fragmento : primeraFilaFragmentada) {
-                if(fragmento != 'V' & fragmento != 'R' & fragmento != 'A'){
-                    sc.close();
-                    throw new IllegalArgumentException("No existe el color introducido.");
-                }
-
+            for (char fragmento : primeraFilaFragmentada) {
+                validarCaracter(fragmento);
                 juegoArrayList.add(fragmento);
             }
 
-            while(sc.hasNextLine()){
+            while (sc.hasNextLine()) {
                 String linea = sc.nextLine();
 
                 if (linea.equals("")) break;
- 
-                char[] lineafragmentada = linea.toCharArray();
-                if(lineafragmentada.length == numeroColumnas){
-                    for(char fragmento : lineafragmentada){
-                        if(fragmento != 'V' & fragmento != 'R' & fragmento != 'A'){
-                            sc.close();
-                            throw new IllegalArgumentException("No existe el color introducido.");
-                        }
+
+                char[] lineaFragmentada = linea.toCharArray();
+                if (lineaFragmentada.length == numeroColumnas) {
+                    for (char fragmento : lineaFragmentada) {
+                        validarCaracter(fragmento);
                         juegoArrayList.add(fragmento);
                     }
                 } else {
@@ -112,24 +112,34 @@ public class MainFichasIguales{
                 }
             }
 
-            if(matrizIncorrecta){
-                break;
+            if(numeroColumnas == 0){
+               sc.close();
+               return;
             }
 
-            int numeroFilas = (juegoArrayList.size() / numeroColumnas);
+            if (!matrizIncorrecta) {
+                int numeroFilas = juegoArrayList.size() / numeroColumnas;
+                char[][] juego = new char[numeroFilas][numeroColumnas];
 
-            char[][] juego = new char[numeroFilas][numeroColumnas];
-
-            for (int j = 0; j < numeroFilas; j++) {
-                for (int k = 0; k < numeroColumnas; k++) {
-                    int indiceArrayList = j * numeroColumnas + k;
-                    juego[j][k] = juegoArrayList.get(indiceArrayList);
+                for (int j = 0; j < numeroFilas; j++) {
+                    for (int k = 0; k < numeroColumnas; k++) {
+                        int indiceArrayList = j * numeroColumnas + k;
+                        juego[j][k] = juegoArrayList.get(indiceArrayList);
+                    }
                 }
-            }
 
-            todosLosJuegos.add(juego);
+                todosLosJuegos.add(juego);
+            } else {
+                System.out.print("\n");// No agregamos el juego porque la matriz es incorrecta.
+            }
         }
         sc.close();
+    }
+
+    private static void validarCaracter(char caracter) throws IllegalArgumentException {
+        if (caracter != 'V' && caracter != 'R' && caracter != 'A') {
+            throw new IllegalArgumentException("No existe el color introducido: " + caracter);
+        }
     }
 
 }
